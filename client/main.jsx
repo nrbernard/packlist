@@ -7,12 +7,15 @@ import '../imports/startup/accounts-config.js';
 import { App } from '../imports/ui/App.jsx';
 import List from '../imports/ui/List.jsx';
 
+import { NotFound } from '../imports/ui/pages/not-found.jsx';
+
 Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
         <IndexRoute component={ List } />
       </Route>
+      <Route path="*" component={ NotFound } />
     </Router>,
     document.getElementById('app'));
 });
