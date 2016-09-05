@@ -19,16 +19,14 @@ export default class Item extends Component {
   }
 
   render() {
-    const itemClassName = classnames({
+    const itemClassName = classnames('list-group-item', {
       checked: this.props.item.checked,
-      private: this.props.item.private,
+      private: this.props.item.private
     });
 
     return (
       <li className={itemClassName}>
-        <button className="delete" onClick={this.deleteThisItem.bind(this)}>
-          &times;
-        </button>
+        <button type="button" className="close delete pull-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
 
         <input
           type="checkbox"

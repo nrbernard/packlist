@@ -57,9 +57,28 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>
-          <h1>Pack List ({this.props.incompleteCount})</h1>
+      <div className="row">
+        <header className="col-sm-3">
+          <h1>PackList</h1>
+        </header>
+
+        <div className="col-sm-9">
+          <h2>Last Hurrah <span className="badge">{this.props.incompleteCount}</span></h2>
+
+          <form className="form new-item" onSubmit={this.handleSubmit.bind(this)} >
+            <div className="form-group">
+              <input
+                type="text"
+                ref="textInput"
+                className="form-control"
+                placeholder="Type to add new items"
+                />
+            </div>
+          </form>
+
+          <ul className="list-group">
+            {this.renderItems()}
+          </ul>
 
           <label className="hide-completed">
             <input
@@ -70,19 +89,7 @@ class App extends Component {
             />
           Hide Completed Items
           </label>
-
-          <form className="new-item" onSubmit={this.handleSubmit.bind(this)} >
-            <input
-              type="text"
-              ref="textInput"
-              placeholder="Type to add new items"
-            />
-          </form>
-        </header>
-
-        <ul>
-          {this.renderItems()}
-        </ul>
+        </div>
       </div>
     );
   }
