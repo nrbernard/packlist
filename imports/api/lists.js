@@ -10,3 +10,14 @@ if (Meteor.isServer) {
     return Lists.find({});
   });
 }
+
+Meteor.methods({
+  'lists.insert'(title) {
+    check(title, String);
+
+    Lists.insert({
+      title,
+      createdAt: new Date()
+    });
+  }
+});

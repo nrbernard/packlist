@@ -4,7 +4,8 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import '../imports/startup/accounts-config.js';
-import { App } from '../imports/ui/App.jsx';
+import App from '../imports/ui/App.jsx';
+import ListsDisplay from '../imports/ui/ListsDisplay.jsx';
 import List from '../imports/ui/List.jsx';
 
 import { NotFound } from '../imports/ui/pages/not-found.jsx';
@@ -13,7 +14,8 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute component={ List } />
+        <IndexRoute component={ ListsDisplay } />
+        <Route path="/lists/:listId" component={ List } />
       </Route>
       <Route path="*" component={ NotFound } />
     </Router>,

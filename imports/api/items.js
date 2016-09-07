@@ -17,8 +17,10 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'items.insert'(text) {
-    check(text, String);
+  'items.insert'(data) {
+    console.log(data)
+    check(data.text, String);
+    check(data.listId, String);
 
     // Make sure the user is logged in before inserting a item
     // if (! this.userId) {
@@ -26,7 +28,8 @@ Meteor.methods({
     // }
 
     Items.insert({
-      text,
+      text: data.text,
+      listId: data.listId,
       createdAt: new Date(),
       // owner: this.userId,
       // username: Meteor.users.findOne(this.userId).username,

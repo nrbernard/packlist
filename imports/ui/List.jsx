@@ -22,7 +22,14 @@ class List extends Component {
     // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
-    Meteor.call('items.insert', text);
+    const data = {
+      text: text,
+      listId: this.props.params.listId
+    }
+
+    console.log(data);
+
+    Meteor.call('items.insert', data);
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
@@ -93,12 +100,13 @@ List.propTypes = {
   incompleteCount: PropTypes.number.isRequired
 };
 
-export default createContainer(() => {
+export default createContainer((request) => {
   Meteor.subscribe('items');
 
+  const listId = request.params.listId;
   return {
-    items: Items.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Items.find({ checked: { $ne: true } }).count(),
+    items: Items.find({listId: listId}, { sort: { createdAt: -1 } }).fetch(),
+    incompleteCount: Items.find({ _id: listId, checked: { $ne: true } }).count(),
     currentUser: Meteor.user()
   };
 }, List);
