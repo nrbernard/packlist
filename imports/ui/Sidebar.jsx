@@ -4,7 +4,9 @@ import { IndexLink, Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Sidebar extends Component {
+import { Lists } from '../api/lists.js';
+
+class Sidebar extends Component {
   constructor(props) {
     super(props);
 
@@ -13,19 +15,40 @@ export default class Sidebar extends Component {
     };
   }
 
+  renderLists() {
+    return this.props.lists.map((list) => {
+      const url = `/lists/${list._id}`;
+
+      return (
+        <li key={list._id}>
+          <Link to={url}>{list.title}</Link>
+        </li>
+      );
+    });
+  }
+
   render() {
     return (
       <aside className="sidebar">
-        <h1>PackList</h1>
+        <IndexLink to='/'>
+          <h1>PackList</h1>
+        </IndexLink>
 
         <ul className="nav nav-pills nav-stacked">
-          <li className="active">
-            <IndexLink to="/" activeClassName="active">Last Hurrah</IndexLink>
-          </li>
-          <li><Link to="/lists/2" activeClassName="active">List 2</Link></li>
-          <li><Link to="/lists/3" activeClassName="active">List 3</Link></li>
+          {this.renderLists()}
         </ul>
       </aside>
     )
   }
 }
+
+Sidebar.propTypes = {
+  lists: PropTypes.array.isRequired,
+};
+
+export default createContainer(() => {
+  Meteor.subscribe('lists');
+  return {
+    lists: Lists.find({}).fetch()
+  };
+}, Sidebar);
