@@ -20,13 +20,17 @@ Meteor.methods({
 
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
-    Trips.insert({
+    // return new Promise((resolve, reject) => {
+    return Trips.insert({
       title: data.title,
       location: data.location,
       date: data.date,
       activities: data.activities,
       owner: this.userId,
       createdAt: new Date()
+    }, (err, resp) => {
+      if (err) return err;
+      return resp;
     });
   }
 });

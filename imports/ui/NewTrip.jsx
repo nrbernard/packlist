@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router'
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 // NewTrip component - creates a new trip
-export default class NewTrip extends Component {
+class NewTrip extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,11 +13,11 @@ export default class NewTrip extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const router = this.props.router;
     const title = ReactDOM.findDOMNode(this.refs.title).value.trim();
     const location = ReactDOM.findDOMNode(this.refs.location).value.trim();
     const activities = [ReactDOM.findDOMNode(this.refs.activity).value.trim()];
     const date = new Date(ReactDOM.findDOMNode(this.refs.date).value);
-
     const data = {
       title,
       location,
@@ -24,9 +25,11 @@ export default class NewTrip extends Component {
       date
     }
 
-    console.log(data);
-    Meteor.call('trips.insert', data);
-    // ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    Meteor.call('trips.insert', data, (err, resp) => {
+      if (err) return new Meteor.Error(err);
+
+      router.push(`/trips/${resp}`);
+    });
   }
 
   renderActivities() {
@@ -80,12 +83,4 @@ export default class NewTrip extends Component {
   }
 }
 
-// export default createContainer((request) => {
-//   Meteor.subscribe('items');
-//
-//   return {
-//     items: Items.find({listId: listId}, { sort: { createdAt: -1 } }).fetch(),
-//     incompleteCount: Items.find({ _id: listId, checked: { $ne: true } }).count(),
-//     currentUser: Meteor.user()
-//   };
-// }, NewTrip);
+export default withRouter(NewTrip);
