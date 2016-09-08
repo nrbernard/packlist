@@ -12,7 +12,7 @@ class ListsDisplay extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   renderLists() {
     return this.props.lists.map((list) => {
       const url = `/lists/${list._id}`;

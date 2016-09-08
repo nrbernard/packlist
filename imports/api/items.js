@@ -18,31 +18,23 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'items.insert'(data) {
-    console.log(data)
     check(data.text, String);
     check(data.listId, String);
 
-    // Make sure the user is logged in before inserting a item
-    // if (! this.userId) {
-    //   throw new Meteor.Error('not-authorized');
-    // }
+    if (!this.userId) throw new Meteor.Error('not-authorized');
 
     Items.insert({
       text: data.text,
       listId: data.listId,
       createdAt: new Date(),
-      // owner: this.userId,
-      // username: Meteor.users.findOne(this.userId).username,
+      owner: this.userId
     });
   },
   'items.remove'(itemId) {
     check(itemId, String);
 
     const item = Items.findOne(itemId);
-    // if (item.private && item.owner !== this.userId) {
-    //   // If the item is private, make sure only the owner can delete it
-    //   throw new Meteor.Error('not-authorized');
-    // }
+    if (!this.userId) throw new Meteor.Error('not-authorized');
 
     Items.remove(itemId);
   },

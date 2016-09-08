@@ -6,6 +6,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Lists } from '../api/lists.js';
 
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +35,8 @@ class Sidebar extends Component {
         <IndexLink to='/'>
           <h1>PackList</h1>
         </IndexLink>
+
+        <AccountsUIWrapper />
 
         <ul className="nav nav-pills nav-stacked">
           {this.renderLists()}

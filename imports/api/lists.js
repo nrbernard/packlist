@@ -15,8 +15,11 @@ Meteor.methods({
   'lists.insert'(title) {
     check(title, String);
 
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
     Lists.insert({
       title,
+      owner: this.userId,
       createdAt: new Date()
     });
   }
