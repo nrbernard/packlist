@@ -4,26 +4,22 @@ import { IndexLink, Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Lists } from '../api/lists.js';
+import { Trips } from '../api/trips.js';
 
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      hideCompleted: false,
-    };
   }
 
-  renderLists() {
-    return this.props.lists.map((list) => {
-      const url = `/lists/${list._id}`;
+  renderTrips() {
+    return this.props.trips.map((trip) => {
+      const url = `/trips/${trip._id}`;
 
       return (
-        <li key={list._id}>
-          <Link to={url}>{list.title}</Link>
+        <li key={trip._id}>
+          <Link to={url}>{trip.title}</Link>
         </li>
       );
     });
@@ -39,7 +35,7 @@ class Sidebar extends Component {
         <AccountsUIWrapper />
 
         <ul className="nav nav-pills nav-stacked">
-          {this.renderLists()}
+          {this.renderTrips()}
         </ul>
       </aside>
     )
@@ -47,12 +43,13 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  lists: PropTypes.array.isRequired,
+  trips: PropTypes.array.isRequired,
 };
 
 export default createContainer(() => {
-  Meteor.subscribe('lists');
+  Meteor.subscribe('trips');
+
   return {
-    lists: Lists.find({}).fetch()
+    trips: Trips.find({}).fetch()
   };
 }, Sidebar);
