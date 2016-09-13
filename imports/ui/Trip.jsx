@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Items } from '../api/items.js';
 import { Trips } from '../api/trips.js';
-import Item from './Item.jsx';
+import List from './List.jsx';
 
 // Trip component - displays a trip
 class Trip extends Component {
@@ -28,6 +27,8 @@ class Trip extends Component {
         <h2>{trip.title}</h2>
         <h3>{trip.location}</h3>
         {this.renderActivities()}
+
+        <List params={{tripId: trip._id}} />
       </div>
     );
   }
@@ -37,11 +38,11 @@ Trip.propTypes = {
   trip: PropTypes.object.isRequired
 };
 
-export default createContainer((request) => {
-  const handle = Meteor.subscribe('trips');
-
+export default TripContainer = createContainer((request) => {
   const tripId = request.params.tripId;
+  const handle = Meteor.subscribe('trips');
   const trip = handle.ready() ? Trips.find({_id: tripId}).fetch()[0] : {};
+
   return {
     trip: trip,
   };

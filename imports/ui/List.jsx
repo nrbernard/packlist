@@ -64,7 +64,7 @@ class List extends Component {
   render() {
     return (
       <div className="list">
-        <h2>Last Hurrah <span className="badge">{this.props.incompleteCount}</span></h2>
+        <h2>Items</h2>
 
         <form className="form new-item" onSubmit={this.handleSubmit.bind(this)} >
           <div className="form-group">
@@ -96,17 +96,20 @@ class List extends Component {
 }
 
 List.propTypes = {
-  items: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired
+  items: PropTypes.array.isRequired
 };
 
-export default createContainer((request) => {
-  Meteor.subscribe('items');
+export default ListContainer = createContainer(({ params }) => {
+  const { tripId } = params;
+  const handle = Meteor.subscribe('items');
+  const loading = !handle.ready();
+  const items = Items.find({tripId: tripId}, { sort: { createdAt: -1 } }).fetch();
+  const itemsExist = !loading && !!items;
 
-  const listId = request.params.listId;
   return {
-    items: Items.find({listId: listId}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Items.find({ _id: listId, checked: { $ne: true } }).count(),
+    loading,
+    itemsExist,
+    items,
     currentUser: Meteor.user()
   };
 }, List);
