@@ -8,6 +8,7 @@ import App from '../imports/ui/App.jsx';
 import ListsDisplay from '../imports/ui/ListsDisplay.jsx';
 import List from '../imports/ui/List.jsx';
 import NewTrip from '../imports/ui/NewTrip.jsx';
+import Trip from '../imports/ui/Trip.jsx';
 
 import { NotFound } from '../imports/ui/pages/not-found.jsx';
 
@@ -18,6 +19,7 @@ Meteor.startup(() => {
         <IndexRoute component={ ListsDisplay } />
         <Route path="/lists/:listId" component={ List } />
         <Route path="/trips/new" component={ NewTrip } />
+        <Route path="/trips/:tripId" component={ Trip } />
       </Route>
       <Route path="*" component={ NotFound } />
     </Router>,
