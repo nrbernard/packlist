@@ -10,7 +10,7 @@ const Navigation = (props) =>
       <IndexLink to='/' className="navbar-brand">PackList</IndexLink>
 
       <div className="nav navbar-nav">
-        <Link to="trips" activeClassName="active" className="nav-item nav-link">Trips</Link>
+        <Link to="/trips" activeClassName="active" className="nav-item nav-link">Trips</Link>
         <div className="text-xs-right">
           <AccountsUIWrapper />
         </div>

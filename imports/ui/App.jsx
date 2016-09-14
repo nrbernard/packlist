@@ -16,9 +16,7 @@ export default class App extends Component {
 
         <div className="container">
           <div className="row">
-            <div className="wrapper">
-              { this.props.children }
-            </div>
+            { this.props.children }
           </div>
         </div>
       </div>

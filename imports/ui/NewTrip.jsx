@@ -50,8 +50,8 @@ class NewTrip extends Component {
     const date = new Date();
 
     return (
-      <div className="row">
-        <h2>New Trip</h2>
+      <div className="new-trip component">
+        <h1>New Trip</h1>
 
         <form className="form new-trip" onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
@@ -75,7 +75,7 @@ class NewTrip extends Component {
           </div>
 
           <div className="form-group">
-            <button type="submit" className="btn btn-default">Create Trip</button>
+            <button type="submit" className="btn btn-success">Create Trip</button>
           </div>
         </form>
       </div>

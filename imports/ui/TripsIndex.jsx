@@ -32,14 +32,14 @@ class TripsIndex extends Component {
 
   render() {
     return (
-      <div className="trips">
-        <div className="row">
-          <div className="card card-block">
-            <h1 className="card-title">Trips</h1>
-            <Link to="/trips/new" className="btn btn-primary btn-lg">Plan Your Trip</Link>
-          </div>
-        </div>
+      <div className="trips component">
+        <h1>Trips</h1>
+        <p className="lead">Here's where you're going.</p>
+        <Link to="/trips/new" className="btn btn-primary btn-lg">Plan Your Trip</Link>
 
+        <hr></hr>
+
+        <h2>Upcomming Trips</h2>
         <div className="row">
           {this.renderTrips()}
         </div>
