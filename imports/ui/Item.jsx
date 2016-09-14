@@ -28,20 +28,20 @@ export default class Item extends Component {
       <li className={itemClassName}>
         <button type="button" className="close delete pull-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
 
-        <input
-          type="checkbox"
-          readOnly
-          checked={this.props.item.checked}
-          onClick={this.toggleChecked.bind(this)}
-        />
+        <label className="form-check-label">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            checked={this.props.item.checked}
+            onChange={this.toggleChecked.bind(this)}
+          /> {this.props.item.text}
+        </label>
 
         { this.props.showPrivateButton ? (
           <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
             { this.props.item.private ? 'Private' : 'Public' }
           </button>
         ) : ''}
-
-        <span className="text">{this.props.item.text}</span>
       </li>
     );
   }

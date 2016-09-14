@@ -66,15 +66,17 @@ class List extends Component {
       <div className="list">
         <h2>Items</h2>
 
-        <label className="hide-completed">
-          <input
-            type="checkbox"
-            readOnly
-            checked={this.state.hideCompleted}
-            onClick={this.toggleHideCompleted.bind(this)}
-            />
-          Hide Completed Items
-        </label>
+        <div className="form-check">
+          <label className="form-check-label">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              readOnly
+              checked={this.state.hideCompleted}
+              onClick={this.toggleHideCompleted.bind(this)}
+              /> Hide Completed Items
+          </label>
+        </div>
 
         <form className="form new-item" onSubmit={this.handleSubmit.bind(this)} >
           <div className="form-group">
