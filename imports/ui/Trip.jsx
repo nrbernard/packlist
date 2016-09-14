@@ -23,10 +23,15 @@ class Trip extends Component {
   render() {
     const trip = this.props.trip;
     return (
-      <div className="trip">
-        <h2>{trip.title}</h2>
-        <h3>{trip.location}</h3>
-        {this.renderActivities()}
+      <div className="trip component">
+        <div className="heading">
+          <h1>{trip.title}</h1>
+          <h2>{trip.location}</h2>
+
+          <ul className="activities">
+            {this.renderActivities()}
+          </ul>
+        </div>
 
         <List params={{tripId: trip._id}} />
       </div>

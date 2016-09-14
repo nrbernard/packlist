@@ -16,7 +16,7 @@ export default class App extends Component {
           <Sidebar />
         </div>
 
-        <div className="col-sm-9">
+        <div className="col-sm-9 wrapper">
           { this.props.children }
         </div>
       </div>

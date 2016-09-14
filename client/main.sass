@@ -1,6 +1,31 @@
 @import 'bootstrap/scss/bootstrap'
+@import 'https://fonts.googleapis.com/css?family=Varela+Round'
+
+$gray: #edeff0
+$red: rgb(255, 82, 82)
+$border-radius: 4px
 
 body
-  background: #333
-  .container
-    background: white
+  font-family: 'Varela Round', sans-serif
+  background: $gray
+
+.wrapper
+  padding: 2rem
+
+.component
+  background: white
+  padding: 2rem
+  border-radius: $border-radius
+
+.trip
+  .heading
+    border-bottom: 1px solid $gray
+    margin-bottom: 1em
+    ul.activities
+      list-style: none
+      padding-left: 0
+      li
+        display: inline-block
+        border: 1px solid $red
+        border-radius: $border-radius
+        padding: 0.5rem

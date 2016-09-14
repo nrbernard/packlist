@@ -66,6 +66,16 @@ class List extends Component {
       <div className="list">
         <h2>Items</h2>
 
+        <label className="hide-completed">
+          <input
+            type="checkbox"
+            readOnly
+            checked={this.state.hideCompleted}
+            onClick={this.toggleHideCompleted.bind(this)}
+            />
+          Hide Completed Items
+        </label>
+
         <form className="form new-item" onSubmit={this.handleSubmit.bind(this)} >
           <div className="form-group">
             <input
@@ -80,16 +90,6 @@ class List extends Component {
         <ul className="list-group">
           {this.renderItems()}
         </ul>
-
-        <label className="hide-completed">
-          <input
-            type="checkbox"
-            readOnly
-            checked={this.state.hideCompleted}
-            onClick={this.toggleHideCompleted.bind(this)}
-          />
-        Hide Completed Items
-        </label>
       </div>
     );
   }
