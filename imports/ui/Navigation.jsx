@@ -27,17 +27,17 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <aside className="sidebar">
-        <IndexLink to='/'>
-          <h1>PackList</h1>
-        </IndexLink>
-
-        <AccountsUIWrapper />
-
-        <ul className="nav nav-pills nav-stacked">
-          {this.renderTrips()}
-        </ul>
-      </aside>
+      <nav className="navbar navbar-full navbar-dark bg-inverse">
+        <div className="container">
+          <IndexLink to='/' className="navbar-brand">PackList</IndexLink>
+          <div className="nav navbar-nav">
+            <Link to="/trips/new/" activeClassName="active" className="nav-item nav-link">New Trip</Link>
+            <div className="text-xs-right">
+              <AccountsUIWrapper />
+            </div>
+          </div>
+        </div>
+      </nav>
     )
   }
 }

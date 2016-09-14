@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-import Sidebar from './Sidebar.jsx';
+import Navigation from './Navigation.jsx';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -11,13 +11,15 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-3">
-          <Sidebar />
-        </div>
+      <div>
+        <Navigation />
 
-        <div className="col-sm-9 wrapper">
-          { this.props.children }
+        <div className="container">
+          <div className="row">
+            <div className="wrapper">
+              { this.props.children }
+            </div>
+          </div>
         </div>
       </div>
     )
