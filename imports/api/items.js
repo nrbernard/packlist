@@ -18,24 +18,25 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   'items.insert'(data) {
-    check(data.text, String);
-    check(data.listId, String);
-
     if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    check(data.text, String);
+    check(data.tripId, String);
 
     Items.insert({
       text: data.text,
-      listId: data.listId,
+      tripId: data.tripId,
       createdAt: new Date(),
-      owner: this.userId
+      owner: this.userId,
+      private: true
     });
   },
   'items.remove'(itemId) {
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
     check(itemId, String);
 
     const item = Items.findOne(itemId);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-
     Items.remove(itemId);
   },
   'items.setChecked'(itemId, setChecked) {
@@ -57,9 +58,9 @@ Meteor.methods({
     const item = Items.findOne(itemId);
 
     // Make sure only the item owner can make a item private
-    // if (item.owner !== this.userId) {
-    //   throw new Meteor.Error('not-authorized');
-    // }
+    if (item.owner !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
 
     Items.update(itemId, { $set: { private: setToPrivate } });
   }

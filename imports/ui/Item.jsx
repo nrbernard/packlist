@@ -19,14 +19,19 @@ export default class Item extends Component {
   }
 
   render() {
-    const itemClassName = classnames('list-group-item', {
+    const listItemClassName = classnames('list-group-item', {
       checked: this.props.item.checked,
       private: this.props.item.private
     });
 
+    const buttonClassName = classnames('btn btn-sm toggle-private pull-xs-right', {
+      'btn-warning': this.props.item.private,
+      'btn-success': !this.props.item.private
+    });
+
     return (
-      <li className={itemClassName}>
-        <button type="button" className="close delete pull-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
+      <li className={listItemClassName}>
+        <button type="button" className="close delete pull-xs-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
 
         <label className="form-check-label">
           <input
@@ -38,7 +43,7 @@ export default class Item extends Component {
         </label>
 
         { this.props.showPrivateButton ? (
-          <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
+          <button className={buttonClassName} onClick={this.togglePrivate.bind(this)}>
             { this.props.item.private ? 'Private' : 'Public' }
           </button>
         ) : ''}

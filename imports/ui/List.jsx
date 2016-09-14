@@ -19,20 +19,15 @@ class List extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
+    const text = ReactDOM.findDOMNode(this.refs.item).value.trim();
     const data = {
       text: text,
-      listId: this.props.params.listId
+      tripId: this.props.params.tripId
     }
-
-    console.log(data);
 
     Meteor.call('items.insert', data);
 
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    ReactDOM.findDOMNode(this.refs.item).value = '';
   }
 
   toggleHideCompleted() {
@@ -82,7 +77,7 @@ class List extends Component {
           <div className="form-group">
             <input
               type="text"
-              ref="textInput"
+              ref="item"
               className="form-control"
               placeholder="Type to add new items"
               />
