@@ -1,1 +1,4 @@
 node_modules/
+
+# Ignore compiled css
+client/main.css
