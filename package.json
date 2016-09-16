@@ -7,7 +7,7 @@
     "build:css": "node-sass --include-path node_modules client/main.sass client/main.css",
     "production:prefix": "postcss --local-plugins --use autoprefixer -o client/main.css client/main.css",
     "watch:css": "nodemon -w client -e sass -x npm run build:css",
-    "heroku-postbuild": "npm run build:css"
+    "heroku-prebuild": "npm run build:css"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
