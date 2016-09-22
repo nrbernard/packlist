@@ -1,13 +1,42 @@
-import React from 'react';
-import Navigation from '../Navigation.jsx';
+import React, { Component, PropTypes } from 'react';
+import Navigation from '../containers/navigation/Navigation.jsx';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export const App = (props) =>
-  <div>
-    <Navigation />
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    <div className="container">
-      <div className="row">
-        { props.children }
+  render() {
+    const children = React.Children.map(this.props.children, (child) => {
+      if (Meteor.user()) {
+        return React.cloneElement(child, {currentUser: this.props.currentUser});
+      } else {
+        return (
+          <div className="loading">
+            <div className="text-xs-center" id="loading-caption">Loading...</div>
+            <progress className="progress" value="75" max="100" aria-describedby="loading-caption"></progress>
+          </div>
+        )
+      }
+    });
+
+    return(
+      <div className="app-container">
+        {Meteor.user() && <Navigation {...this.props} />}
+
+        <div className="container">
+          <div className="row">
+            { children }
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    )
+  }
+}
+
+export default AppContainer = createContainer(() => {
+  return {
+    currentUser: Meteor.user()
+  };
+}, App);

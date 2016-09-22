@@ -11,8 +11,8 @@ export default class AccountLink extends React.Component {
 
   render() {
     return (
-      <Link to="/login" className="nav-item nav-link">
-        <Gravatar email={this.props.email} />
+      <Link to="/account" className="nav-item nav-link">
+        <Gravatar email={this.props.email} /> {this.props.email}
       </Link>
     )
   }
