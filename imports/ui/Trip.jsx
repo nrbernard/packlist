@@ -35,7 +35,7 @@ class Trip extends Component {
 
         <hr></hr>
 
-        <List params={{tripId: trip._id}} />
+        <List params={{tripId: trip._id}} currentUser={this.props.currentUser}/>
       </div>
     );
   }

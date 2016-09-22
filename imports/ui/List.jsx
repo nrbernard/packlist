@@ -43,8 +43,7 @@ class List extends Component {
     }
 
     return filteredItems.map((item) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = item.owner === currentUserId;
+      const showPrivateButton = item.owner === this.props.currentUser._id;
 
       return (
         <Item
@@ -107,6 +106,5 @@ export default ListContainer = createContainer(({ params }) => {
     loading,
     itemsExist,
     items,
-    currentUser: Meteor.user()
   };
 }, List);
