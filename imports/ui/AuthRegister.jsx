@@ -33,7 +33,7 @@ class AuthRegister extends React.Component {
           errors: { none: err.reason },
         });
       } else {
-        router.push('/');
+        router.push('/trips');
       }
     });
   }
@@ -55,7 +55,7 @@ class AuthRegister extends React.Component {
           ))}
 
           <div className="alert alert-warning" role="alert">
-            <strong>Need an account?</strong> <Link to="/login">Login here</Link>.
+            <strong>Already have an account?</strong> <Link to="/login">Login here</Link>.
           </div>
 
           <div className={`form-group input-symbol ${errorClass('email')}`}>

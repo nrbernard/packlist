@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Account extends React.Component {
+class Account extends React.Component {
+  logout() {
+    Meteor.logout(() => this.props.router.push('/'))
+  }
+
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
   }
 
   render() {
@@ -13,7 +18,11 @@ export default class Account extends React.Component {
     return (
       <div className="component account">
         <h1>{email}</h1>
+
+      <button className="btn btn-danger" onClick={this.logout}>Logout</button>
       </div>
     )
   }
 }
+
+export default withRouter(Account);

@@ -30,7 +30,7 @@ class AuthLogin extends React.Component {
           errors: { none: err.reason },
         });
       } else {
-        router.push('/');
+        router.push('/trips');
       }
     });
   }
