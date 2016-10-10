@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Trips } from '../api/trips.js';
+import { Items } from '../api/items.js';
 import List from './List.jsx';
 
 // Trip component - displays a trip
@@ -35,9 +36,16 @@ class Trip extends Component {
 
         <hr></hr>
 
-        <List params={{tripId: trip._id}} currentUser={this.props.currentUser}/>
+        {this.props.itemsExist && <List tripId={trip._id} currentUser={this.props.currentUser} items={this.props.items} categories={this.state.categories} />}
       </div>
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.itemsExist) {
+      let categories = nextProps.items.map((item) => item.category).filter(category => !!category);
+      this.setState({categories: _.uniq(categories)});
+    }
   }
 }
 
@@ -47,10 +55,17 @@ Trip.propTypes = {
 
 export default TripContainer = createContainer((request) => {
   const tripId = request.params.tripId;
-  const handle = Meteor.subscribe('trips');
-  const trip = handle.ready() ? Trips.find({_id: tripId}).fetch()[0] : {};
+  const tripsSubscription = Meteor.subscribe('trips');
+  const itemsSubscription = Meteor.subscribe('items');
+  const trip = tripsSubscription.ready() ? Trips.find({_id: tripId}).fetch()[0] : {};
+  const items = itemsSubscription.ready() ? Items.find({tripId: tripId}, { sort: { createdAt: -1 } }).fetch() : [];
+  const loading = !itemsSubscription.ready();
+  const itemsExist = !loading && items.length > 0;
 
   return {
-    trip: trip,
+    trip,
+    items,
+    loading,
+    itemsExist
   };
 }, Trip);

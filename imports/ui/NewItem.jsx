@@ -43,13 +43,12 @@ class NewItem extends Component {
 
 
   render() {
-    if (!this.props.tripId) return null;
-    let categories = [];
-    this.state.categories.map(cat => {if (!categories.includes(cat)) categories.push(cat)});
-    const options = categories.map(cat => <option value={cat} key={cat}>{_.capitalize(cat)}</option>);
+    const options = this.props.categories.map(cat => <option value={cat} key={cat}>{_.capitalize(cat)}</option>);
 
     return (
       <div className="new-trip">
+        <h2>New Item</h2>
+
         <form className="form-inline new-item" onSubmit={this.handleSubmit.bind(this)} >
           <div className="form-group">
             <label className="sr-only" htmlFor="item-name">New Item</label>
