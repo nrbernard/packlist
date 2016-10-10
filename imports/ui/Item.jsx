@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Items } from '../api/items.js';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
+import _ from 'lodash';
 
 // Item component - represents a single todo item
 export default class Item extends Component {
@@ -31,22 +32,28 @@ export default class Item extends Component {
 
     return (
       <li className={listItemClassName}>
-        <button type="button" className="close delete pull-xs-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
+        <form className="form-inline">
+          <button type="button" className="close delete pull-xs-right" aria-label="Close"><span aria-hidden="true" onClick={this.deleteThisItem.bind(this)}>&times;</span></button>
 
-        <label className="form-check-label">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            checked={this.props.item.checked}
-            onChange={this.toggleChecked.bind(this)}
-          /> {this.props.item.text}
-        </label>
+          <div className="form-check">
+            <label className="form-check-label">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                checked={this.props.item.checked}
+                onChange={this.toggleChecked.bind(this)}
+                /> {this.props.item.text}
+              </label>
+          </div>
 
-        { this.props.showPrivateButton ? (
-          <button className={buttonClassName} onClick={this.togglePrivate.bind(this)}>
-            { this.props.item.private ? 'Private' : 'Public' }
-          </button>
-        ) : ''}
+          <span className="tag tag-pill tag-default">{_.capitalize(this.props.item.category)}</span>
+
+          { this.props.showPrivateButton ? (
+            <button className={buttonClassName} onClick={this.togglePrivate.bind(this)}>
+              { this.props.item.private ? 'Private' : 'Public' }
+            </button>
+          ) : ''}
+        </form>
       </li>
     );
   }

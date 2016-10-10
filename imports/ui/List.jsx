@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Items } from '../api/items.js';
 import Item from './Item.jsx';
+import NewItem from './NewItem.jsx';
 
 // List component - displays items
 class List extends Component {
@@ -12,22 +13,8 @@ class List extends Component {
     super(props);
 
     this.state = {
-      hideCompleted: false,
+      hideCompleted: false
     };
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const text = ReactDOM.findDOMNode(this.refs.item).value.trim();
-    const data = {
-      text: text,
-      tripId: this.props.params.tripId
-    }
-
-    Meteor.call('items.insert', data);
-
-    ReactDOM.findDOMNode(this.refs.item).value = '';
   }
 
   toggleHideCompleted() {
@@ -72,16 +59,7 @@ class List extends Component {
           </label>
         </div>
 
-        <form className="form new-item" onSubmit={this.handleSubmit.bind(this)} >
-          <div className="form-group">
-            <input
-              type="text"
-              ref="item"
-              className="form-control"
-              placeholder="Type to add new items"
-              />
-          </div>
-        </form>
+        <NewItem tripId={this.props.params.tripId} categories={this.state.categories}/>
 
         <ul className="list-group">
           {this.renderItems()}
@@ -89,7 +67,15 @@ class List extends Component {
       </div>
     );
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.loading && nextProps.items.length > 0) {
+      const categories = nextProps.items.map((item) => item.category).filter(category => !!category);
+      this.setState({categories});
+    }
+  }
 }
+
 
 List.propTypes = {
   items: PropTypes.array.isRequired

@@ -21,10 +21,12 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
     check(data.text, String);
+    check(data.category, String);
     check(data.tripId, String);
 
     Items.insert({
       text: data.text,
+      category: data.category,
       tripId: data.tripId,
       createdAt: new Date(),
       owner: this.userId,
