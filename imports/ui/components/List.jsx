@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Item from './Item.jsx';
 import NewItem from './NewItem.jsx';
+import ItemCategory from './ItemCategory.jsx';
+import _ from 'lodash';
 
 // List component - displays items
 export default class List extends Component {
@@ -16,22 +17,10 @@ export default class List extends Component {
     });
   }
 
-  renderItems() {
-    let filteredItems = this.props.items;
-    if (this.state.hideCompleted) {
-      filteredItems = filteredItems.filter(item => !item.checked);
-    }
-
-    return filteredItems.map((item) => {
-      const showPrivateButton = item.owner === this.props.currentUser._id;
-
-      return (
-        <Item
-          key={item._id}
-          item={item}
-          showPrivateButton={showPrivateButton}
-        />
-      );
+  renderItemCategories() {
+    return this.props.categories.map(category => {
+      const items = this.props.items.filter(item => item.category === category);
+      return <ItemCategory key={category} category={_.capitalize(category)} items={items} hideCompleted={this.state.hideCompleted} currentUser={this.props.currentUser} />;
     });
   }
 
@@ -56,9 +45,9 @@ export default class List extends Component {
 
         <h2>Items</h2>
 
-        <ul className="list-group">
-          {this.renderItems()}
-        </ul>
+        <div className="card-columns">
+          {this.renderItemCategories()}
+        </div>
       </div>
     );
   }

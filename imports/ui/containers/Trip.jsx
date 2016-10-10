@@ -37,21 +37,26 @@ class Trip extends Component {
 
         <hr></hr>
 
-        {this.props.itemsExist && <List tripId={trip._id} currentUser={this.props.currentUser} items={this.props.items} categories={this.state.categories} />}
+        {this.props.itemsExist && <List tripId={trip._id} {...this.props} />}
       </div>
     );
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.itemsExist) {
-      let categories = nextProps.items.map((item) => item.category).filter(category => !!category);
-      this.setState({categories: _.uniq(categories)});
+      let itemCategories = nextProps.items.map((item) => item.category).filter(category => !!category);
+      const allCategories = itemCategories.concat(this.props.categories);
+      this.setState({categories: _.uniq(allCategories)});
     }
   }
 }
 
 Trip.propTypes = {
-  trip: PropTypes.object.isRequired
+  categories: PropTypes.array.isRequired
+};
+
+Trip.defaultProps = {
+  categories: ['kitchen', 'sleeping', 'essentials']
 };
 
 export default TripContainer = createContainer((request) => {
@@ -59,7 +64,7 @@ export default TripContainer = createContainer((request) => {
   const tripsSubscription = Meteor.subscribe('trips');
   const itemsSubscription = Meteor.subscribe('items');
   const trip = tripsSubscription.ready() ? Trips.find({_id: tripId}).fetch()[0] : {};
-  const items = itemsSubscription.ready() ? Items.find({tripId: tripId}, { sort: { createdAt: -1 } }).fetch() : [];
+  const items = itemsSubscription.ready() ? Items.find({tripId: tripId}, { sort: { category: 1 } }).fetch() : [];
   const loading = !itemsSubscription.ready();
   const itemsExist = !loading && items.length > 0;
 
