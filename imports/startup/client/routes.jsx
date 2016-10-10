@@ -1,20 +1,20 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-// layouts
-import App from '../../ui/layouts/App.jsx';
+// Data containers
+import App from '../../ui/containers/App.jsx';
+import Trip from '../../ui/containers/Trip.jsx';
 
 // Auth pages
-import AuthRegister from '../../ui/AuthRegister.jsx';
-import AuthLogin from '../../ui/AuthLogin.jsx';
+import AuthRegister from '../../ui/components/AuthRegister.jsx';
+import AuthLogin from '../../ui/components/AuthLogin.jsx';
 
 // Account Pages
-import Account from '../../ui/Account.jsx';
+import Account from '../../ui/components/Account.jsx';
 
 // Trip pages
-import NewTrip from '../../ui/NewTrip.jsx';
-import Trip from '../../ui/Trip.jsx';
-import TripsIndex from '../../ui/TripsIndex.jsx';
+import NewTrip from '../../ui/components/NewTrip.jsx';
+import TripsIndex from '../../ui/components/TripsIndex.jsx';
 
 // Static pages
 import { Home } from '../../ui/pages/home.jsx';

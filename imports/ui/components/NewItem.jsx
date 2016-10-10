@@ -82,8 +82,12 @@ class NewItem extends Component {
 }
 
 NewItem.defaultProps = {
-  categories: ['Kitchen'],
-  tripId: null
+  categories: ['Kitchen']
+};
+
+NewItem.propTypes = {
+  tripId: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired
 };
 
 export default withRouter(NewItem);

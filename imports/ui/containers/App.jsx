@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Navigation from '../containers/navigation/Navigation.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
+import Navigation from '../components/Navigation.jsx';
 
 class App extends Component {
   constructor(props) {

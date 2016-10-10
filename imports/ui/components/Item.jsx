@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Items } from '../api/items.js';
 import { Meteor } from 'meteor/meteor';
+import { Items } from '../../api/items.js';
+
 import classnames from 'classnames';
-import _ from 'lodash';
 
 // Item component - represents a single todo item
 export default class Item extends Component {
@@ -46,7 +46,7 @@ export default class Item extends Component {
               </label>
           </div>
 
-          <span className="tag tag-pill tag-default">{_.capitalize(this.props.item.category)}</span>
+          <span className="tag tag-pill tag-default">{this.props.item.category}</span>
 
           { this.props.showPrivateButton ? (
             <button className={buttonClassName} onClick={this.togglePrivate.bind(this)}>

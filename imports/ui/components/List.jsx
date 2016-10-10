@@ -1,9 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Items } from '../api/items.js';
 import Item from './Item.jsx';
 import NewItem from './NewItem.jsx';
 
@@ -70,5 +65,6 @@ export default class List extends Component {
 }
 
 List.propTypes = {
-  items: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired
 };

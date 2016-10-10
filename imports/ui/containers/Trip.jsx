@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Trips } from '../api/trips.js';
-import { Items } from '../api/items.js';
-import List from './List.jsx';
+import { Trips } from '../../api/trips.js';
+import { Items } from '../../api/items.js';
+
+import List from '../components/List.jsx';
 
 // Trip component - displays a trip
 class Trip extends Component {
